@@ -1,0 +1,15 @@
+# systemd *user* service for the alarm daemon.
+# Install:  cp systemd/alarm.service ~/.config/systemd/user/
+#           systemctl --user daemon-reload && systemctl --user enable --now alarm
+# Logs:     journalctl --user -u alarm -f
+[Unit]
+Description=Custom alarm clock daemon
+
+[Service]
+# %h expands to your home directory.
+ExecStart=%h/.cargo/bin/alarm daemon
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
